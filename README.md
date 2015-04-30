@@ -23,4 +23,5 @@ RNA-seq Analysis Exercise | https://usegalaxy.org/u/jeremy/p/galaxy-rna-seq-anal
 
 Name  | Download link  | Local path  | Description
 ------------- | ------------- | ------------- | -------------
-Bowtie2 | http://bowtie-bio.sourceforge.net/bowtie2/index.shtml | ./tools/bowtie | An ultrafast and memory-efficient tool for aligning sequencing reads to long reference sequences
+Bowtie2 | http://bowtie-bio.sourceforge.net/bowtie2/index.shtml | ./tools/bowtie | An ultrafast and memory-efficient tool for aligning sequencing reads to long reference sequences 
+FastQC | http://www.bioinformatics.babraham.ac.uk/projects/fastqc/ | ./tools/FastQC | A quality control tool for high throughput sequence data
