@@ -25,3 +25,4 @@ Name  | Download link  | Local path  | Description
 ------------- | ------------- | ------------- | -------------
 Bowtie2 | http://bowtie-bio.sourceforge.net/bowtie2/index.shtml | ./tools/bowtie | An ultrafast and memory-efficient tool for aligning sequencing reads to long reference sequences 
 FastQC | http://www.bioinformatics.babraham.ac.uk/projects/fastqc/ | ./tools/FastQC | A quality control tool for high throughput sequence data
+Trimmomatic | http://www.usadellab.org/cms/?page=trimmomatic | ./tools/Trimmomatic | performs a variety of useful trimming tasks for illumina paired-end and single ended data.The selection of trimming steps and their associated parameters are supplied on the command line
