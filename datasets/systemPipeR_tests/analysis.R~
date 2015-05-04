@@ -1,0 +1,120 @@
+### R code from vignette source 'systemPipeR.Rnw'
+library(systemPipeR)
+
+###################################################
+### code chunk number 6: systemPipeR.Rnw:88-91
+###################################################
+read.delim("targetsPE.txt", comment.char = "#")
+read.delim("tophat.param", comment.char = "#")
+
+###################################################
+### code chunk number 9: systemPipeR.Rnw:107-109
+###################################################
+args <- systemArgs(sysma="tophat.param", mytargets="targetsPE.txt")
+
+###################################################
+### code chunk number 15: systemPipeR.Rnw:144-145 (eval = FALSE)
+###################################################
+moduleload(modules(args))
+system("bowtie2-build ./data/tair10.fasta ./data/tair10.fasta")
+
+###################################################
+### code chunk number 16: systemPipeR.Rnw:149-150 (eval = FALSE)
+###################################################
+bampaths <- runCommandline(args=args)
+
+###################################################
+### code chunk number 17: systemPipeR.Rnw:154-156 (eval = FALSE)
+###################################################
+qsubargs <- getQsubargs(queue="batch", cores=cores(args), memory="mem=10gb", time="walltime=20:00:00")
+(joblist <- qsubRun(args=args, qsubargs=qsubargs, Nqsubs=18, package="systemPipeR"))
+
+###################################################
+### code chunk number 18: systemPipeR.Rnw:160-163 (eval = FALSE)
+###################################################
+read_statsDF <- alignStats(args=args, fqgz=FALSE) 
+write.table(read_statsDF, "results/alignStats.xls", row.names=FALSE, quote=FALSE, sep="\t")
+
+###################################################
+### code chunk number 19: systemPipeR.Rnw:167-170 (eval = FALSE)
+###################################################
+symLink2bam(sysargs=args, htmldir=c("~/.html/", "projects/systemPipeR_tests/"), 
+            urlbase="http://biocluster.ucr.edu/~tgirke/", 
+	    urlfile="IGVurl.txt")
+
+###################################################
+### code chunk number 20: systemPipeR.Rnw:175-178 (eval = FALSE)
+###################################################
+parampath <- "bowtieSE.param"
+args <- systemArgs(sysma=parampath, mytargets=targetspath)
+bampaths <- runCommandline(args=args)
+
+###################################################
+### code chunk number 21: systemPipeR.Rnw:182-184 (eval = FALSE)
+###################################################
+qsubargs <- getQsubargs(queue="batch", Nnodes="nodes=1", cores=cores(args), memory="mem=10gb", time="walltime=20:00:00")
+(joblist <- qsubRun(args=args, qsubargs=qsubargs, Nqsubs=4, package="systemPipeR"))
+
+###################################################
+### code chunk number 22: systemPipeR.Rnw:189-191 (eval = FALSE)
+###################################################
+library(GenomicFeatures)
+txdb <- makeTranscriptDbFromGFF(file="data/tair10.gff", format="gff", dataSource="TAIR", species="A. thaliana")
+saveDb(txdb, file="./data/TAIR10_trunc.sqlite")
+
+###################################################
+### code chunk number 23: systemPipeR.Rnw:195-207 (eval = FALSE)
+###################################################
+library(BiocParallel)
+txdb <- loadDb("./data/TAIR10_trunc.sqlite")
+eByg <- exonsBy(txdb, by="gene")
+bfl <- BamFileList(outpaths(args), yieldSize=50000, index=character())
+multicoreParam <- MulticoreParam(workers=4); register(multicoreParam); registered()
+counteByg <- bplapply(bfl, function(x) summarizeOverlaps(eByg, x, mode="Union", 
+                                               ignore.strand=TRUE, 
+                                               inter.feature=TRUE, 
+                                               singleEnd=TRUE)) # Note: for strand-specific RNA-Seq set 'ignore.strand=FALSE' and for PE data set 'singleEnd=FALSE'
+countDFeByg <- sapply(seq(along=counteByg), function(x) assays(counteByg[[x]])$counts)
+rownames(countDFeByg) <- names(rowData(counteByg[[1]])); colnames(countDFeByg) <- names(bfl)
+rpkmDFeByg <- apply(countDFeByg, 2, function(x) returnRPKM(counts=x, ranges=eByg))
+write.table(countDFeByg, "results/countDFeByg.xls", col.names=NA, quote=FALSE, sep="\t")
+write.table(rpkmDFeByg, "results/rpkmDFeByg.xls", col.names=NA, quote=FALSE, sep="\t")
+
+###################################################
+### code chunk number 24: systemPipeR.Rnw:212-221 (eval = FALSE)
+###################################################
+## system("wget ftp://mirbase.org/pub/mirbase/19/genomes/My_species.gff3 -P ./data/")
+## gff <- import.gff("./data/My_species.gff3", asRangedData=FALSE)
+## gff <- split(gff, elementMetadata(gff)$ID)
+## bams <- names(bampaths); names(bams) <- targets$SampleName
+## bfl <- BamFileList(bams, yieldSize=50000, index=character())
+## countDFmiR <- summarizeOverlaps(gff, bfl, mode="Union", ignore.strand=FALSE, inter.feature=FALSE) # Note: inter.feature=FALSE important since pre and mature miRNA ranges overlap
+## rpkmDFmiR <- apply(countDFmiR, 2, function(x) returnRPKM(counts=x, gffsub=gff))
+## write.table(assays(countDFmiR)$counts, "results/countDFmiR.xls", col.names=NA, quote=FALSE, sep="\t")
+## write.table(rpkmDFmiR, "results/rpkmDFmiR.xls", col.names=NA, quote=FALSE, sep="\t")
+
+
+###################################################
+### code chunk number 25: systemPipeR.Rnw:225-231 (eval = FALSE)
+###################################################
+library(ape)
+rpkmDFeByg <- read.table("./results/rpkmDFeByg.xls", check.names=FALSE)
+rpkmDFeByg <- rpkmDFeByg[rowMeans(rpkmDFeByg) > 50,]
+d <- cor(rpkmDFeByg, method="spearman")
+hc <- hclust(as.dist(1-d))
+plot.phylo(as.phylo(hc), type="p", edge.col="blue", edge.width=2, show.node.label=TRUE, no.margin=TRUE)
+
+###################################################
+### code chunk number 27: systemPipeR.Rnw:240-241 (eval = FALSE)
+###################################################
+library(edgeR)
+targets <- read.delim("targets.txt", comment="#")
+cmp <- readComp(file="targets.txt", format="matrix", delim="-")
+edgeDF <- run_edgeR(countDF=countDFeByg, targets=targets, cmp=cmp[[1]], independent=TRUE, mdsplot="")
+
+###################################################
+### code chunk number 28: sessionInfo
+###################################################
+toLatex(sessionInfo())
+
+
