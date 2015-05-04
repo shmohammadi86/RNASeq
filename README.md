@@ -16,7 +16,6 @@ For detailed information regarding workshop exercises, please visit [Workshop ou
 Name  | Download link  | Local path  | Description
 ------------- | ------------- | ------------- | -------------
 RNA-seq Analysis Exercise | https://usegalaxy.org/u/jeremy/p/galaxy-rna-seq-analysis-exercise | ./datasets/BodyMap | Small samples of datasets from the Illumina BodyMap 2.0 project; specifically, the datasets are paired-end 50bp reads from adrenal and brain tissues. The sampled reads map mostly to a 500Kb region of chromosome 19, positions 3-3.5 million (chr19:3000000:3500000)
-
 SystemPipeR Tutorial | http://www.bioconductor.org/packages/release/bioc/vignettes/systemPipeR/inst/doc/systemPipeR.pdf | ./datasets/systemPipeR_tests/data | 18 paired-end (PE) read sets from Aradabidopsis (SRP010938). Each FASTQ file has been subsetted to 90,000-100,000 randomly sampled PE reads that map to the first 100,000 nucleotides of each chromosome. The corresponding reference genome sequence (FASTA) and its GFF annotation files have been truncated accordingly.
 
 
