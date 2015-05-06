@@ -1,0 +1,19 @@
+Metadata-Version: 1.1
+Name: HTSeq
+Version: 0.6.1
+Summary: A framework to process and analyze data from high-throughput sequencing (HTS) assays
+Home-page: http://www-huber.embl.de/users/anders/HTSeq/
+Author: Simon Anders
+Author-email: sanders@fs.tum.de
+License: UNKNOWN
+Description: UNKNOWN
+Platform: UNKNOWN
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Topic :: Scientific/Engineering :: Bio-Informatics
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: Science/Research
+Classifier: License :: OSI Approved :: GNU General Public License (GPL)
+Classifier: Operating System :: POSIX
+Classifier: Programming Language :: Python
+Requires: numpy
+Requires: python (>=2.5, <3.0)
