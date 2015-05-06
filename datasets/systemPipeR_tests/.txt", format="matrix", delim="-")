@@ -1,0 +1,54 @@
+readComp              package:systemPipeR              R Documentation
+
+_I_m_p_o_r_t _s_a_m_p_l_e _c_o_m_p_a_r_i_s_o_n_s _f_r_o_m _t_a_r_g_e_t_s _f_i_l_e
+
+_D_e_s_c_r_i_p_t_i_o_n:
+
+     Parses sample comparisons specified in '<CMP>' line(s) of targets
+     file.  All possible comparisons can be specified with 'CMPset:
+     ALL'.
+
+_U_s_a_g_e:
+
+     readComp(file, format = "vector", delim = "-")
+     
+_A_r_g_u_m_e_n_t_s:
+
+    file: Path to targets file.
+
+  format: Object type to return: 'vector' or 'matrix'.
+
+   delim: Delimiter to use when sample comparisons are returned as
+          'vector'.
+
+_D_e_t_a_i_l_s:
+
+     ...
+
+_V_a_l_u_e:
+
+     'list' where each component is named according to the name(s) used
+     in the '<CMP>' line(s) of the targets file. The list will contain
+     as many sample comparisons sets (list components) as there are
+     sample comparisons lines in the corresponding targets file.
+
+_A_u_t_h_o_r(_s):
+
+     Thomas Girke
+
+_R_e_f_e_r_e_n_c_e_s:
+
+     ...
+
+_S_e_e _A_l_s_o:
+
+     ...
+
+_E_x_a_m_p_l_e_s:
+
+     library(systemPipeR)
+     targetspath <- paste0(system.file("extdata", package="systemPipeR"), "/targets.txt")
+     read.delim(targetspath, comment.char = "#")
+     readComp(file=targetspath, format="vector", delim="-")
+     
+
