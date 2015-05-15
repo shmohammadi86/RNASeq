@@ -1,4 +1,4 @@
-REPO=~/RNASeq
+REPO="/Temporary\ Files/RNASeq"
 
 # Put all the tools in the search PATH
 for d in $REPO/tools/*; do PATH="$PATH:$d"; done
