@@ -1,0 +1,15 @@
+long_spanning_reads v1.3.2 (2689)
+--------------------------------------------
+Opening tophat/f021_case_tophat_out/tmp/right_kept_reads_seg1.bwtout.z for reading
+Opening tophat/f021_case_tophat_out/tmp/right_kept_reads_seg2.bwtout.z for reading
+Opening tophat/f021_case_tophat_out/tmp/right_kept_reads_seg3.bwtout.z for reading
+Opening tophat/f021_case_tophat_out/tmp/right_kept_reads_seg4.bwtout.z for reading
+Opening tophat/f021_case_tophat_out/tmp/right_kept_reads_seg1.to_spliced.bwtout.z for reading
+Opening tophat/f021_case_tophat_out/tmp/right_kept_reads_seg2.to_spliced.bwtout.z for reading
+Opening tophat/f021_case_tophat_out/tmp/right_kept_reads_seg3.to_spliced.bwtout.z for reading
+Opening tophat/f021_case_tophat_out/tmp/right_kept_reads_seg4.to_spliced.bwtout.z for reading
+Loading reference sequences...
+        reference sequences loaded.
+Loading spliced hits...done
+Loading junctions...done
+Loading deletions...done

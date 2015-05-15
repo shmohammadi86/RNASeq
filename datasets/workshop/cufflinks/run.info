@@ -1,0 +1,5 @@
+param	value
+cmd_line	cuffdiff -o cufflinks f005_chr21_genome_annotation.gtf sam/f031_case.sam sam/f034_cont.sam 
+version	2.0.2
+SVN_revision	3524M
+boost_version	104700
