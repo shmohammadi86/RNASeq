@@ -1,5 +1,9 @@
 setwd("/Temporary\ Files/RNASeq/datasets/ngscourse.org")
 
+# Clean the working space and load the library.
+rm (list = ls ())
+library(edgeR)
+
 # Download the count matrix
 data <- read.table("count_matrix.txt")
 
@@ -19,12 +23,6 @@ data <- DGEList(counts=data, group=grps)
 # View sample information: group membership, library sizes, and normalization factors (currently set to 1)
 data$samples
 
-# Filtering out stuff, but took out too many genes
-#keep <- rowSums(cpm(data)>1) >= 3
-#data <- data[keep,]
-#dim(data)
-#data$samples$lib.size <- colSums(data$counts)
-
 # Calculate normalization factors
 data <- calcNormFactors(data)
 
@@ -40,7 +38,7 @@ data <- estimateCommonDisp(data, verbose=TRUE)
 # Estimate tagwise dispersion
 data <- estimateTagwiseDisp(data)
 
-# Perform Fisher's exact test on each gene
+# Perform exact test on each gene
 res <- exactTest(data)
 
 # View the top most differentially expressed genes
