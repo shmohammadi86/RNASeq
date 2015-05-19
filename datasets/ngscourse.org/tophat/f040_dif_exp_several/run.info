@@ -1,0 +1,5 @@
+param	value
+cmd_line	cuffdiff -o f040_dif_exp_several /Users/fayezheng/RNASeq/datasets/ngscourse.org/f005_chr21_genome_annotation.gtf f031_case.sam,f032_case.sam,f033_case.sam f034_cont.sam,f035_cont.sam,f036_cont.sam 
+version	2.2.1
+SVN_revision	4237
+boost_version	105500

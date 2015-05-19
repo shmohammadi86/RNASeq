@@ -1,26 +1,20 @@
-# GLBio RNASeq workshop
+# GLBio RNA-Seq Workshop
 
-This is the main repository for the RNA-Seq hands-on workshop, held at GLBio 2015, Purdue University. During this workshop, you will learn the basics of RNA-Seq data analysis, focusing on quality control, sequencing read alignment, and fiferential expression analysis. 
+This is the main repository for the RNA-Seq hands-on workshop, held at GLBio 2015, Purdue University. During this workshop, you will learn the basics of RNA-Seq data analysis, focusing on quality control, sequencing read alignment, and differential expression analysis. 
 
 This course assumes a very basic knowledge of Linux, R, and next-generation sequencing (NGS). All materials in this course are free and open; feel free to reuse them as you like. 
-
-You can clone the repository to your local machine using:
-
-```
-git clone https://github.com/shmohammadi86/RNASeq.git
-```
 
 Please find all workshop instructions on the [workshop wiki page](https://github.com/shmohammadi86/RNASeq/wiki).
 
 
-## Description of Datasets and Tools
+## Description of Datasets and Tools Used in the Workshop
 
 ### Datasets
 
 Name  | Download link  | Local path  | Description
 ------------- | ------------- | ------------- | -------------
 Quality-Control Example Dataset | [Link](https://usegalaxy.org/u/jeremy/p/galaxy-rna-seq-analysis-exercise) | ./datasets/BodyMap | Small samples of datasets from the Illumina BodyMap 2.0 project; specifically, the datasets are paired-end 50bp reads from adrenal and brain tissues. The sampled reads map mostly to a 500Kb region of chromosome 19, positions 3-3.5 million (chr19:3000000:3500000)
-RNA-Seq Analysis Dataset | NA | ./Datasets/ngscourse.org | NA 
+RNA-Seq Analysis Dataset | NA | workshop | Simulated data from human chromosome 21. 1-2M reads are simulated with various parameters, including length and mutation rates. Samples are paired-end, with 3 treatment and 3 controls.
 
 ### Tools
 

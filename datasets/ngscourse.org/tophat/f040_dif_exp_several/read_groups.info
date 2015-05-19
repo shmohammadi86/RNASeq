@@ -1,0 +1,7 @@
+file	condition	replicate_num	total_mass	norm_mass	internal_scale	external_scale
+f031_case.sam	q1	0	343	518.231	0.617715	1
+f032_case.sam	q1	1	357	518.231	0.660514	1
+f033_case.sam	q1	2	343	518.231	0.675774	1
+f034_cont.sam	q2	0	817	518.231	1.5874	1
+f035_cont.sam	q2	1	780.5	518.231	1.47084	1
+f036_cont.sam	q2	2	809	518.231	1.7546	1
